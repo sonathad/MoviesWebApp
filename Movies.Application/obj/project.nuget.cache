@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "FOSDEZjvgrLNqPhBlmC90qtzHgpnvlUxID6Ef+Q2di6WzRCBcJsnAhON8MLkPsq5W4xVS7GqgF1TwTPH1D2GOQ==",
+  "dgSpecHash": "HgH/7O26Bk+D5WuIVN79t6H5a42DRy/07QrQCLTBp6jaFl2Ab8GS2WJ21tHL3TCWKX/ovcrE9KFa+vjUHoXE/Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\thano\\RiderProjects\\MoviesWebApp\\Movies.Application\\Movies.Application.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\thano\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.1\\microsoft.extensions.dependencyinjection.abstractions.8.0.1.nupkg.sha512"
+  ],
   "logs": []
 }
