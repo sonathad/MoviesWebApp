@@ -41,7 +41,7 @@ public class MoviesController : ControllerBase
     /// <summary>
     /// Retrieves a specific movie by id.
     /// </summary>
-    /// <response code="200">Gets the movie that corresponds to the supplied id.</response>
+    /// <response code="200">Gets the movie that corresponds to the provided id.</response>
     /// <response code="404">A movie with the requested id was not found.</response>
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -59,14 +59,49 @@ public class MoviesController : ControllerBase
     }
 
     /// <summary>
-    /// Fetch all movies from the database.
+    /// Get all movies from the database.
     /// </summary>
-    /// <response code="200">All movies from the database.</response>
+    /// <response code="200">The movies that exist in the database.</response>
     [HttpGet(ApiEndpoints.Movies.GetAll)]
     public async Task<IActionResult> GetAll()
     {
         var movies = await _movieRepository.GetAllAsync();
         var moviesResponse = movies.MapToResponse();
         return Ok(moviesResponse);
+    }
+
+    /// <summary>
+    /// Update the fields of the movie that corresponds to the provided id.
+    /// </summary>
+    /// <param name="id">The id for the movie to be updated.</param>
+    /// <param name="movieRequest">The UpdateMovieRequest object that contains the info to be saved.</param>
+    /// <response code="200">The movie was updated successfully.</response>
+    /// <response code="404">A movie with the provided id was not found.</response>
+    [HttpPut(ApiEndpoints.Movies.Update)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateMovieRequest movieRequest)
+    {
+        var movie = movieRequest.MapToMovie(id);
+        var updated = await _movieRepository.UpdateAsync(movie);
+        if (!updated)
+            return NotFound();
+
+        var movieResponse = movie.MapToResponse();
+        return Ok(movieResponse);
+    }
+    
+    /// <summary>
+    /// Delete the movie that has the provided id.
+    /// </summary>
+    /// <param name="id">The id for the movie to be deleted.</param>
+    /// <response code="204">There is no movie with the requested id in the database.</response>
+    [HttpDelete(ApiEndpoints.Movies.Delete)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Delete([FromRoute] Guid id)
+    {
+        await _movieRepository.DeleteByIdAsync(id);
+        return NoContent();
     }
 }

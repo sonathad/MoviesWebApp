@@ -10,7 +10,7 @@ namespace Movies.Api.Mapping;
 public static class ContractMapping
 {
     /// <summary>
-    /// A method that converts a movie request to a Movie domain entity.
+    /// A method that converts a CreateMovieRequest to a Movie domain entity.
     /// </summary>
     /// <returns>A new Movie entity.</returns>
     public static Movie MapToMovie(this CreateMovieRequest movieRequest)
@@ -18,6 +18,21 @@ public static class ContractMapping
         return new Movie
         {
             Id = Guid.NewGuid(),
+            Title = movieRequest.Title,
+            YearOfRelease = movieRequest.YearOfRelease,
+            Genres = movieRequest.Genres.ToList()
+        };
+    }
+    
+    /// <summary>
+    /// A method that converts an UpdateMovieRequest to a Movie domain entity.
+    /// </summary>
+    /// <returns>A new Movie entity.</returns>
+    public static Movie MapToMovie(this UpdateMovieRequest movieRequest, Guid id)
+    {
+        return new Movie
+        {
+            Id = id,
             Title = movieRequest.Title,
             YearOfRelease = movieRequest.YearOfRelease,
             Genres = movieRequest.Genres.ToList()
