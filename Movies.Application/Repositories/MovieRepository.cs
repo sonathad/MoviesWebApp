@@ -15,7 +15,8 @@ public class MovieRepository : IMovieRepository
 
     public Task<Movie?> GetByIdAsync(Guid id)
     {
-        var movie = _movies.SingleOrDefault(x => x.Id == id);
+        // Could use SingleOrDefault, however I have no use of the exception that it throws
+        var movie = _movies.FirstOrDefault(x => x.Id == id);
         return Task.FromResult(movie);
     }
 
