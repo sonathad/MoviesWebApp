@@ -3,14 +3,15 @@ using Movies.Contracts.Requests;
 using Movies.Contracts.Responses;
 
 namespace Movies.Api.Mapping;
+
 /// <summary>
-/// A mapper class to be used instead of adding a NuGet package
-/// that handles transformation between domain objects
+///     A mapper class to be used instead of adding a NuGet package
+///     that handles transformation between domain objects
 /// </summary>
 public static class ContractMapping
 {
     /// <summary>
-    /// A method that converts a CreateMovieRequest to a Movie domain entity.
+    ///     A method that converts a CreateMovieRequest to a Movie domain entity.
     /// </summary>
     /// <returns>A new Movie entity.</returns>
     public static Movie MapToMovie(this CreateMovieRequest movieRequest)
@@ -23,9 +24,9 @@ public static class ContractMapping
             Genres = movieRequest.Genres.ToList()
         };
     }
-    
+
     /// <summary>
-    /// A method that converts an UpdateMovieRequest to a Movie domain entity.
+    ///     A method that converts an UpdateMovieRequest to a Movie domain entity.
     /// </summary>
     /// <returns>A new Movie entity.</returns>
     public static Movie MapToMovie(this UpdateMovieRequest movieRequest, Guid id)
@@ -40,7 +41,7 @@ public static class ContractMapping
     }
 
     /// <summary>
-    /// A Movie entity to a Movie response mapper.
+    ///     A Movie entity to a Movie response mapper.
     /// </summary>
     /// <param name="movie">A movie Entity.</param>
     /// <returns></returns>
@@ -55,9 +56,9 @@ public static class ContractMapping
             Genres = movie.Genres
         };
     }
-    
+
     /// <summary>
-    /// Converts a collection of movie entities to a Movies response.
+    ///     Converts a collection of movie entities to a Movies response.
     /// </summary>
     /// <param name="movies">A collection of movie entities.</param>
     /// <returns>An object containing a collection of movie responses.</returns>

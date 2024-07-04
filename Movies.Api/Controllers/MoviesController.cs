@@ -6,7 +6,7 @@ using Movies.Contracts.Requests;
 namespace Movies.Api.Controllers;
 
 /// <summary>
-/// The controller that corresponds to the endpoints that CRUD movie resources.
+///     The controller that corresponds to the endpoints that CRUD movie resources.
 /// </summary>
 [ApiController]
 public class MoviesController : ControllerBase
@@ -19,7 +19,7 @@ public class MoviesController : ControllerBase
     }
 
     /// <summary>
-    /// Creates a new movie.
+    ///     Creates a new movie.
     /// </summary>
     /// <param name="movieRequest">The movie to be created.</param>
     /// <response code="201">The movie was added successfully.</response>
@@ -31,7 +31,7 @@ public class MoviesController : ControllerBase
     {
         var movie = movieRequest.MapToMovie();
         var created = await _movieRepository.CreateAsync(movie);
-        if (!created) 
+        if (!created)
             return BadRequest();
 
         var movieResponse = movie.MapToResponse();
@@ -39,7 +39,7 @@ public class MoviesController : ControllerBase
     }
 
     /// <summary>
-    /// Retrieves a specific movie by id.
+    ///     Retrieves a specific movie by id.
     /// </summary>
     /// <response code="200">Gets the movie that corresponds to the provided id.</response>
     /// <response code="404">A movie with the requested id was not found.</response>
@@ -51,17 +51,14 @@ public class MoviesController : ControllerBase
         var movie = Guid.TryParse(idOrSlug, out var id)
             ? await _movieRepository.GetByIdAsync(id)
             : await _movieRepository.GetBySlugAsync(idOrSlug);
-        if (movie is null)
-        {
-            return NotFound();
-        }
+        if (movie is null) return NotFound();
 
         var response = movie.MapToResponse();
         return Ok(response);
     }
 
     /// <summary>
-    /// Get all movies from the database.
+    ///     Get all movies from the database.
     /// </summary>
     /// <response code="200">The movies that exist in the database.</response>
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -74,7 +71,7 @@ public class MoviesController : ControllerBase
     }
 
     /// <summary>
-    /// Update the fields of the movie that corresponds to the provided id.
+    ///     Update the fields of the movie that corresponds to the provided id.
     /// </summary>
     /// <param name="id">The id for the movie to be updated.</param>
     /// <param name="movieRequest">The UpdateMovieRequest object that contains the info to be saved.</param>
@@ -93,9 +90,9 @@ public class MoviesController : ControllerBase
         var movieResponse = movie.MapToResponse();
         return Ok(movieResponse);
     }
-    
+
     /// <summary>
-    /// Delete the movie that has the provided id.
+    ///     Delete the movie that has the provided id.
     /// </summary>
     /// <param name="id">The id for the movie to be deleted.</param>
     /// <response code="204">There is no movie with the requested id in the database.</response>

@@ -6,7 +6,7 @@ public class MovieRepository : IMovieRepository
 {
     // temporary in-memory database, will be replaced later
     private readonly List<Movie> _movies = new();
-    
+
     public Task<bool> CreateAsync(Movie movie)
     {
         _movies.Add(movie);
@@ -34,10 +34,7 @@ public class MovieRepository : IMovieRepository
     public Task<bool> UpdateAsync(Movie movie)
     {
         var movieIndex = _movies.FindIndex(x => x.Id == movie.Id);
-        if (movieIndex == -1)
-        {
-            return Task.FromResult(false);
-        }
+        if (movieIndex == -1) return Task.FromResult(false);
 
         _movies[movieIndex] = movie;
         return Task.FromResult(true);
