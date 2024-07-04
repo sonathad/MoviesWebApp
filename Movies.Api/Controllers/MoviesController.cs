@@ -64,6 +64,7 @@ public class MoviesController : ControllerBase
     /// Get all movies from the database.
     /// </summary>
     /// <response code="200">The movies that exist in the database.</response>
+    [ProducesResponseType(StatusCodes.Status200OK)]
     [HttpGet(ApiEndpoints.Movies.GetAll)]
     public async Task<IActionResult> GetAll()
     {
@@ -79,9 +80,9 @@ public class MoviesController : ControllerBase
     /// <param name="movieRequest">The UpdateMovieRequest object that contains the info to be saved.</param>
     /// <response code="200">The movie was updated successfully.</response>
     /// <response code="404">A movie with the provided id was not found.</response>
-    [HttpPut(ApiEndpoints.Movies.Update)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [HttpPut(ApiEndpoints.Movies.Update)]
     public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateMovieRequest movieRequest)
     {
         var movie = movieRequest.MapToMovie(id);
@@ -98,9 +99,9 @@ public class MoviesController : ControllerBase
     /// </summary>
     /// <param name="id">The id for the movie to be deleted.</param>
     /// <response code="204">There is no movie with the requested id in the database.</response>
-    [HttpDelete(ApiEndpoints.Movies.Delete)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [HttpDelete(ApiEndpoints.Movies.Delete)]
     public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
         await _movieRepository.DeleteByIdAsync(id);

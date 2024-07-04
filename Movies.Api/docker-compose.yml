@@ -1,0 +1,13 @@
+﻿services:
+  
+  db:
+    image: postgres
+    restart: always
+    environment:
+      # Obligatory "don't do this for anything that isn't a small project" warning
+      # and just leverage environment variables or secrets next time
+      POSTGRES_USER: testuser
+      POSTGRES_PASSWORD: testpassword
+      POSTGRES_DB: movies
+    ports:
+      - "5432:5432"
